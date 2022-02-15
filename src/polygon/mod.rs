@@ -5,7 +5,7 @@ mod tests {
 
     #[test]
     fn test_point_init_string() {
-        let point = Point2D::init_str("0,1");
+        let point = Point2D::init("0,1");
         assert_eq!(point.x, 0.0);
         assert_eq!(point.y, 1.0);
     }
@@ -34,10 +34,10 @@ pub struct Point2D {
 }
 
 impl Point2D {
-    pub fn init_str(cmd: &str) -> Point2D {
-        let cmt_it: Vec<&str> = cmd.split(',').collect();
-        let x_coord: f32 = cmt_it[0].parse().unwrap();
-        let y_coord: f32 = cmt_it[1].parse().unwrap();
+    pub fn init(coordinates: &str) -> Point2D {
+        let coords: Vec<&str> = coordinates.split(',').collect();
+        let x_coord: f32 = coords[0].parse().unwrap();
+        let y_coord: f32 = coords[1].parse().unwrap();
         Point2D {
             x: x_coord,
             y: y_coord,
@@ -50,15 +50,12 @@ pub struct Polygon {
 }
 
 impl Polygon {
-    pub fn init(command: &str) -> Polygon {
-        let cmd_it = command.split(' ');
+    pub fn init(coordinates: &str) -> Polygon {
         let mut points = Vec::new();
-        for s in cmd_it {
-            points.push(Point2D::init_str(s));
+        for coords in coordinates.split(' ') {
+            points.push(Point2D::init(coords));
         }
-        Polygon {
-            point_list: points,
-        }
+        Polygon { point_list: points }
     }
 
     pub fn area(&self) -> f32 {
