@@ -26,6 +26,30 @@ mod tests {
         assert_eq!(triang.point_list[2].x, 1.0);
         assert_eq!(triang.point_list[2].y, 1.0);
     }
+
+    #[test]
+    #[should_panic]
+    fn zero_points() {
+        let _zerang = Polygon::init("");
+    }
+
+    #[test]
+    #[should_panic]
+    fn one_point() {
+        let _oneang = Polygon::init("0,0");
+    }
+
+    #[test]
+    #[should_panic]
+    fn two_points() {
+        let _twoang = Polygon::init("0,0 2,0");
+    }
+
+    #[test]
+    #[should_panic]
+    fn area_zero() {
+        let _zeroarea = Polygon::init("0,0 1,0 2,0");
+    }
 }
 
 pub struct Point2D {
@@ -51,11 +75,11 @@ pub struct Polygon {
 
 impl Polygon {
     pub fn init(coordinates: &str) -> Polygon {
-        let mut points = Vec::new();
-        for coords in coordinates.split(' ') {
-            points.push(Point2D::init(coords));
-        }
-        Polygon { point_list: points }
+        let poly = Polygon {
+            point_list: Polygon::get_point_list(coordinates),
+        };
+        poly.sanity_check();
+        poly
     }
 
     pub fn area(&self) -> f32 {
@@ -69,5 +93,22 @@ impl Polygon {
             j = i;
         }
         area.abs() / 2.0
+    }
+
+    fn get_point_list(coordinates: &str) -> Vec<Point2D> {
+        let mut points = Vec::new();
+        for coords in coordinates.split(' ') {
+            points.push(Point2D::init(coords));
+        }
+        points
+    }
+
+    fn sanity_check(&self) {
+        if self.point_list.len() < 3 {
+            panic!("Invalid number of points");
+        }
+        if self.area() <= 0.0 {
+            panic!("Invalid area!")
+        }
     }
 }
