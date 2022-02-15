@@ -4,14 +4,21 @@ mod tests {
     use super::Polygon;
 
     #[test]
-    fn test_point_init_string() {
+    fn point_init_string() {
         let point = Point2D::init("0,1");
         assert_eq!(point.x, 0.0);
         assert_eq!(point.y, 1.0);
     }
 
     #[test]
-    fn test_area_simple() {
+    fn point_init_string_float() {
+        let point = Point2D::init("-0.3,1.2");
+        assert_eq!(point.x, -0.3);
+        assert_eq!(point.y, 1.2);
+    }
+
+    #[test]
+    fn area_simple() {
         let triang = Polygon::init("0,0 2,0 1,1");
         assert_eq!(triang.area(), 1.0);
     }
@@ -24,6 +31,17 @@ mod tests {
         assert_eq!(triang.point_list[1].x, 2.0);
         assert_eq!(triang.point_list[1].y, 0.0);
         assert_eq!(triang.point_list[2].x, 1.0);
+        assert_eq!(triang.point_list[2].y, 1.0);
+    }
+
+    #[test]
+    fn test_read_command_float_negative() {
+        let triang = Polygon::init("0,0.2 2.9,0 -1.1,1");
+        assert_eq!(triang.point_list[0].x, 0.0);
+        assert_eq!(triang.point_list[0].y, 0.2);
+        assert_eq!(triang.point_list[1].x, 2.9);
+        assert_eq!(triang.point_list[1].y, 0.0);
+        assert_eq!(triang.point_list[2].x, -1.1);
         assert_eq!(triang.point_list[2].y, 1.0);
     }
 
