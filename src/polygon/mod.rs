@@ -24,6 +24,20 @@ mod tests {
     }
 
     #[test]
+    fn centroid_simple() {
+        let triang = Polygon::init("0,0 2,0 1,1");
+        assert_eq!(triang.centroid().x, 1.0);
+        assert_eq!(triang.centroid().y, 1.0/3.0);
+    }
+
+    #[test]
+    fn centroid_square() {
+        let triang = Polygon::init("-1,-1 1,-1 1,1 -1,1");
+        assert_eq!(triang.centroid().x, 0.0);
+        assert_eq!(triang.centroid().y, 0.0);
+    }
+
+    #[test]
     fn test_read_command() {
         let triang = Polygon::init("0,0 2,0 1,1");
         assert_eq!(triang.point_list[0].x, 0.0);
@@ -111,6 +125,19 @@ impl Polygon {
             j = i;
         }
         area.abs() / 2.0
+    }
+
+    pub fn centroid(&self) -> Point2D {
+        let mut cent = Point2D { x: 0.0, y: 0.0 };
+        let mut count: i32 = 0;
+        for point in &self.point_list {
+            count += 1;
+            cent.x += point.x;
+            cent.y += point.y;
+        }
+        cent.x = cent.x / (count as f32);
+        cent.y = cent.y / (count as f32);
+        cent
     }
 
     fn get_point_list(coordinates: &str) -> Vec<Point2D> {
