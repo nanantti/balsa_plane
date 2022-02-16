@@ -18,6 +18,15 @@ mod tests {
     }
 
     #[test]
+    fn point_equality() {
+        let p1 = Point2D::init("0.0,1.0");
+        let p2 = Point2D::init("0.0,1.0");
+        let p3 = Point2D::init("1.0,1.0");
+        assert!(p1 == p2);
+        assert!(p1 != p3);
+    }
+
+    #[test]
     fn area_simple() {
         let triang = Polygon::init("0,0 2,0 1,1");
         assert_eq!(triang.area(), 1.0);
@@ -60,6 +69,15 @@ mod tests {
     }
 
     #[test]
+    fn polygon_equality() {
+        let p1 = Polygon::init("0,0 2,0 1,1");
+        let p2 = Polygon::init("0,0 2,0 1,1");
+        let p3 = Polygon::init("0,0 2,0 1,2");
+        assert!(p1 == p2);
+        assert!(p1 != p3);
+    }
+
+    #[test]
     #[should_panic]
     fn zero_points() {
         let _zerang = Polygon::init("");
@@ -84,6 +102,7 @@ mod tests {
     }
 }
 
+#[derive(PartialEq)]
 pub struct Point2D {
     x: f32,
     y: f32,
@@ -101,6 +120,7 @@ impl Point2D {
     }
 }
 
+#[derive(PartialEq)]
 pub struct Polygon {
     point_list: Vec<Point2D>,
 }
