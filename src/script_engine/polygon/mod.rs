@@ -36,7 +36,7 @@ mod tests {
     fn centroid_simple() {
         let triang = Polygon::init("0,0 2,0 1,1");
         assert_eq!(triang.centroid().x, 1.0);
-        assert_eq!(triang.centroid().y, 1.0/3.0);
+        assert_eq!(triang.centroid().y, 1.0 / 3.0);
     }
 
     #[test]
