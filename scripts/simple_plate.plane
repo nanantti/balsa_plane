@@ -1,0 +1,16 @@
+MATERIAL balsa2
+thickness   2.0
+density     1.0
+
+PARAMETER   zero   0.0
+
+POLY triangle
+a   $zero   $zero
+r   2.0     $zero
+r   -1.0    1.0
+
+PART plate
+material    balsa2
+poly        triangle
+rotate      $zero   $zero   $zero
+translate   $zero   $zero   $zero
