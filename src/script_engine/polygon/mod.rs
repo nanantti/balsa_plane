@@ -102,8 +102,8 @@ mod tests {
 
 #[derive(Debug, PartialEq)]
 pub struct Point2D {
-    pub x: f32,
-    pub y: f32,
+    x: f32,
+    y: f32,
 }
 
 impl Point2D {
