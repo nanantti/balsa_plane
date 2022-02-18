@@ -4,6 +4,13 @@ mod tests {
     use super::Polygon;
 
     #[test]
+    fn point_init_floats() {
+        let point = Point2D::new(0.0, 1.0);
+        assert_eq!(point.x, 0.0);
+        assert_eq!(point.y, 1.0);
+    }
+
+    #[test]
     fn point_init_string() {
         let point = Point2D::init("0,1");
         assert_eq!(point.x, 0.0);
@@ -24,6 +31,12 @@ mod tests {
         let p3 = Point2D::init("1.0,1.0");
         assert!(p1 == p2);
         assert!(p1 != p3);
+    }
+
+    #[test]
+    fn area_simple_vec() {
+        let triang = Polygon::new(vec![Point2D::new(0.0, 0.0), Point2D::new(2.0, 0.0), Point2D::new(1.0, 1.0)]);
+        assert_eq!(triang.area(), 1.0);
     }
 
     #[test]
@@ -102,10 +115,10 @@ mod tests {
     }
 }
 
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Point2D {
-    x: f32,
-    y: f32,
+    pub x: f32,
+    pub y: f32,
 }
 
 impl Point2D {
@@ -117,6 +130,10 @@ impl Point2D {
             x: x_coord,
             y: y_coord,
         }
+    }
+
+    pub fn new(x_coord: f32, y_coord: f32) -> Point2D {
+        Point2D { x: x_coord, y: y_coord }
     }
 }
 
@@ -132,6 +149,10 @@ impl Polygon {
         };
         poly.sanity_check();
         poly
+    }
+
+    pub fn new(points: Vec<Point2D>) -> Polygon {
+        Polygon { point_list: points }
     }
 
     pub fn area(&self) -> f32 {
