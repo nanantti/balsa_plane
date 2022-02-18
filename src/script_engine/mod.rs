@@ -97,7 +97,7 @@ fn get_coordinates(script: &str) -> Vec<Point2D> {
             ' ' | 'a' => read_line(line),
             'r' => read_line(line) + last_point,
             _ => {
-                panic!("Invalid line");
+                panic!("Invalid line"); //TODO: print offending line as part of panic message
             }
         };
         coordinates.push(next_point);
