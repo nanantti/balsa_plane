@@ -26,6 +26,13 @@ mod tests {
         assert!(p1 != p3);
     }
 
+    #[test]
+    fn point_sum() {
+        let p1 = Point2D::new(3.0, 4.0);
+        let p2 = Point2D::new(1.0, -2.0);
+        assert_eq!(p1 + p2, Point2D::new(4.0, 2.0));
+    }
+
     fn simple_triangle() -> Polygon {
         Polygon::new(vec![
             Point2D::new(0.0, 0.0),
@@ -100,10 +107,20 @@ mod tests {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Copy, Clone)]
 pub struct Point2D {
     x: f32,
     y: f32,
+}
+
+impl std::ops::Add for Point2D {
+    type Output = Point2D;
+    fn add(self, other: Point2D) -> Point2D {
+        Point2D {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
 }
 
 impl Point2D {
