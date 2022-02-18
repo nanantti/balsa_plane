@@ -14,8 +14,8 @@ mod tests {
 
     fn triangle_raw() -> &'static str {
         "a   0.0 0.0
-r   4.0 0.0
-r   -2.0    1.0"
+a   4.0 0.0
+a   2.0 1.0"
     }
 
     #[test]
@@ -26,7 +26,7 @@ r   -2.0    1.0"
             vec![
                 Point2D::new(0.0, 0.0),
                 Point2D::new(4.0, 0.0),
-                Point2D::new(-2.0, 1.0),
+                Point2D::new(2.0, 1.0),
             ]
         );
     }
