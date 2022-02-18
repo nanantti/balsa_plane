@@ -26,33 +26,22 @@ mod tests {
         assert!(p1 != p3);
     }
 
-    #[test]
-    fn area_simple_vec() {
-        let triang = Polygon::new(vec![
+    fn simple_triangle() -> Polygon {
+        Polygon::new(vec![
             Point2D::new(0.0, 0.0),
             Point2D::new(2.0, 0.0),
             Point2D::new(1.0, 1.0),
-        ]);
-        assert_eq!(triang.area(), 1.0);
+        ])
     }
 
     #[test]
     fn area_simple() {
-        let triang = Polygon::new(vec![
-            Point2D::new(0.0, 0.0),
-            Point2D::new(2.0, 0.0),
-            Point2D::new(1.0, 1.0),
-        ]);
-        assert_eq!(triang.area(), 1.0);
+        assert_eq!(simple_triangle().area(), 1.0);
     }
 
     #[test]
     fn centroid_simple() {
-        let triang = Polygon::new(vec![
-            Point2D::new(0.0, 0.0),
-            Point2D::new(2.0, 0.0),
-            Point2D::new(1.0, 1.0),
-        ]);
+        let triang = simple_triangle();
         assert_eq!(triang.centroid().x, 1.0);
         assert_eq!(triang.centroid().y, 1.0 / 3.0);
     }
@@ -71,16 +60,8 @@ mod tests {
 
     #[test]
     fn polygon_equality() {
-        let p1 = Polygon::new(vec![
-            Point2D::new(0.0, 0.0),
-            Point2D::new(2.0, 0.0),
-            Point2D::new(1.0, 1.0),
-        ]);
-        let p2 = Polygon::new(vec![
-            Point2D::new(0.0, 0.0),
-            Point2D::new(2.0, 0.0),
-            Point2D::new(1.0, 1.0),
-        ]);
+        let p1 = simple_triangle();
+        let p2 = simple_triangle();
         let p3 = Polygon::new(vec![
             Point2D::new(0.0, 0.0),
             Point2D::new(2.0, 0.0),
